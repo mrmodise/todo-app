@@ -1,67 +1,122 @@
-<div>
-    <h2 id="page-heading">
-        <span>Tasks</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-task" [routerLink]="['/task/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span >
-            Create new Task
+<div class="p-4">
+    <div class="row justify-content-center align-items-center">
+        <h2>To-Do List</h2>
+    </div>
+    <div class="row justify-content-center align-items-center h-100 mb-3">
+        <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
+            <input type="text" [formControl]="searchField" class="form-control" name="searchField"
+                   placeholder="Search by Title">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <jhi-alert></jhi-alert>
+        </div>
+    </div>
+    <div class="row pb-3">
+        <div class="col-12">
+            <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-task"
+                    [routerLink]="['/task/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span>
+            Create new Activity
             </span>
-        </button>
-    </h2>
-    <jhi-alert></jhi-alert>
-    <br/>
+            </button>
+        </div>
+    </div>
     <div class="table-responsive" *ngIf="tasks">
-        <table class="table table-striped">
-            <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="title"><span>Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="dueDate"><span>Due Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="completed"><span>Completed</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="category.name"><span>Category</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let task of tasks ;trackBy: trackId">
-                <td><a [routerLink]="['/task', task.id, 'view' ]">{{task.id}}</a></td>
-                <td>{{task.title}}</td>
-                <td>{{task.description}}</td>
-                <td>{{task.dueDate | date:'mediumDate'}}</td>
-                <td>{{task.completed}}</td>
-                <td>
-                    <div *ngIf="task.category">
-                        <a [routerLink]="['../category', task.category?.id, 'view' ]" >{{task.category?.name}}</a>
+        <div class="mb-3" *ngIf="tasks">
+            <div class="list-group bg-light mb-2" jhiSort [(predicate)]="predicate" [(ascending)]="reverse"
+                 [callback]="transition.bind(this)">
+                <a class="list-group-item">
+                <span class="float-left pl-3 mr-1" jhiSortBy="title">Title
+                <fa-icon [icon]="'sort'"></fa-icon>
+                </span>
+                    <span class="float-right pr-3 mr-1" jhiSortBy="categories.name">Category
+                 <fa-icon [icon]="'sort'"></fa-icon>
+                </span>
+
+                </a>
+            </div>
+            <div class="list-group" *ngFor="let task of tasks; trackBy: trackId" jhiSort [(predicate)]="predicate"
+                 [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <button type="button" class="list-group-item list-group-item-action"
+                        (click)="task.isCollapsed = !task.isCollapsed"
+                        [attr.aria-expanded]="!task.isCollapsed" aria-controls="collapseActivity">
+                <span class="float-left mr-3" *ngIf="!task.isCollapsed"><fa-icon
+                    icon="angle-right"></fa-icon></span>
+                    <span class="float-left mr-3" *ngIf="task.isCollapsed"><fa-icon icon="angle-down"></fa-icon></span>
+                    <span class="float-left">{{task.title}}</span>
+                    <span class="float-right ml-3" [ngStyle]="{'color': task.completed ? 'green' : 'red'}"><fa-icon
+                        icon="calendar-check"></fa-icon></span>
+                    <span class="float-right">{{task.category?.name}}</span>
+                </button>
+                <div id="collapseActivity" [ngbCollapse]="!task.isCollapsed">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-4">
+                                    <dt><span>Title</span></dt>
+                                    <dd>
+                                        <span>{{task.title}}</span>
+                                    </dd>
+                                </div>
+                                <div class="col-4">
+                                    <dt><span>Description</span></dt>
+                                    <dd>
+                                        <span>{{task.description}}</span>
+                                    </dd>
+                                </div>
+                                <div class="col-4">
+                                    <dt><span>Due Date</span></dt>
+                                    <dd>
+                                        <span>{{task.dueDate | date: 'mediumDate'}}</span>
+                                    </dd>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <dt><span>Status</span></dt>
+                                    <dd>
+                                        <span>{{task.completed ? 'Completed' : 'Incomplete' }}</span>
+                                    </dd>
+                                </div>
+                                <div class="col-4">
+                                    <dt><span>Category</span></dt>
+                                    <dd *ngIf="task.categories">
+                                        <span>{{task.categories?.name}}</span>
+                                    </dd>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center align-items-center">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit"
+                                            [routerLink]="['/task', task.id, 'edit']"
+                                            class="btn btn-primary btn-sm">
+                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                        <span class="d-none d-md-inline">Edit</span>
+                                    </button>
+                                    <button type="submit"
+                                            (click)="complete(task)"
+                                            class="btn btn-info btn-sm">
+                                        <fa-icon icon="check-circle"></fa-icon>
+                                        <span class="d-none d-md-inline">Complete</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/', 'task', { outlets: { popup: task.id + '/delete'} }]"
+                                            replaceUrl="true"
+                                            queryParamsHandling="merge"
+                                            class="btn btn-danger btn-sm">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                        <span class="d-none d-md-inline">Delete</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </td>
-                <td class="text-right">
-                    <div class="btn-group flex-btn-group-container">
-                        <button type="submit"
-                                [routerLink]="['/task', task.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/task', task.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', 'task', { outlets: { popup: task.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline">Delete</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                </div>
+            </div>
+        </div>
     </div>
     <div *ngIf="tasks && tasks.length">
         <div class="row justify-content-center">
