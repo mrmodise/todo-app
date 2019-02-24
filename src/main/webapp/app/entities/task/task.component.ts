@@ -1,22 +1,20 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
-
 import { ITask } from 'app/shared/model/task.model';
 import { AccountService } from 'app/core';
-
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { TaskService } from './task.service';
 import { FormControl } from '@angular/forms';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
     selector: 'jhi-task',
     templateUrl: './task.component.html'
 })
 export class TaskComponent implements OnInit, OnDestroy {
-    currentAccount: any;
     tasks: ITask[];
     error: any;
     success: any;
@@ -62,6 +60,30 @@ export class TaskComponent implements OnInit, OnDestroy {
             );
     }
 
+    search() {
+        // create search input field
+        this.searchField = new FormControl();
+        // retrieve user input
+        this.searchField.valueChanges
+            .pipe(
+                debounceTime(200), // value can be adjusted to avoid overloading the server. the trade-off is user experience
+                distinctUntilChanged()
+            )
+            .subscribe(term => {
+                this.taskService
+                    .query({
+                        'title.contains': term,
+                        page: this.page - 1,
+                        size: this.itemsPerPage,
+                        sort: this.sort()
+                    })
+                    .subscribe(
+                        (res: HttpResponse<ITask[]>) => this.paginateTasks(res.body, res.headers),
+                        (res: HttpErrorResponse) => this.onError(res.message)
+                    );
+            });
+    }
+
     loadPage(page: number) {
         if (page !== this.previousPage) {
             this.previousPage = page;
@@ -99,6 +121,7 @@ export class TaskComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
         });*/
         this.registerChangeInTasks();
+        this.search();
     }
 
     ngOnDestroy() {
@@ -110,7 +133,7 @@ export class TaskComponent implements OnInit, OnDestroy {
     }
 
     registerChangeInTasks() {
-        this.eventSubscriber = this.eventManager.subscribe('taskListModification', response => this.loadAll());
+        this.eventSubscriber = this.eventManager.subscribe('taskListModification', () => this.loadAll());
     }
 
     sort() {
@@ -129,5 +152,15 @@ export class TaskComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    complete(task: ITask) {
+        task.isCollapsed = false;
+        task.completed = !task.completed;
+        this.subscribeToSaveResponse(this.taskService.update(task));
+    }
+
+    protected subscribeToSaveResponse(result: Observable<HttpResponse<ITask>>) {
+        result.subscribe((res: HttpResponse<ITask>) => console.log(`success`), (res: HttpErrorResponse) => console.log(`Error`));
     }
 }
