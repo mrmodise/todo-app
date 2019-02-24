@@ -1,0 +1,5 @@
+id;title;description;due_date;completed;is_collapsed;category_id
+1;Shopping;Shopping experience;2019-02-28;false;false;1
+2;Washing;Washing experience;2019-03-21;false;false;4
+3;Studying;Studying experience;2019-05-01;false;false;3
+4;Cleaning;Cleaning experience;2019-03-03;false;false;2
