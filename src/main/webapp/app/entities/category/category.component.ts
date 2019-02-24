@@ -41,9 +41,10 @@ export class CategoryComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loadAll();
-        this.accountService.identity().then(account => {
+        // No need to retrieve user as security is disabled
+        /*this.accountService.identity().then(account => {
             this.currentAccount = account;
-        });
+        });*/
         this.registerChangeInCategories();
     }
 

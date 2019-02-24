@@ -19,7 +19,6 @@
             <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="dueDate"><span>Due Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="completed"><span>Completed</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="isCollapsed"><span>Is Collapsed</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="category.name"><span>Category</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -31,7 +30,6 @@
                 <td>{{task.description}}</td>
                 <td>{{task.dueDate | date:'mediumDate'}}</td>
                 <td>{{task.completed}}</td>
-                <td>{{task.isCollapsed}}</td>
                 <td>
                     <div *ngIf="task.category">
                         <a [routerLink]="['../category', task.category?.id, 'view' ]" >{{task.category?.name}}</a>

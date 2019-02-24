@@ -40,8 +40,8 @@ export const taskRoute: Routes = [
             authorities: ['ROLE_USER'],
             defaultSort: 'id,asc',
             pageTitle: 'Tasks'
-        },
-        canActivate: [UserRouteAccessService]
+        }
+        // canActivate: [UserRouteAccessService] disabling security for task routes
     },
     {
         path: ':id/view',
@@ -52,8 +52,8 @@ export const taskRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'Tasks'
-        },
-        canActivate: [UserRouteAccessService]
+        }
+        // canActivate: [UserRouteAccessService]
     },
     {
         path: 'new',
@@ -64,8 +64,8 @@ export const taskRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'Tasks'
-        },
-        canActivate: [UserRouteAccessService]
+        }
+        // canActivate: [UserRouteAccessService]
     },
     {
         path: ':id/edit',
@@ -76,8 +76,8 @@ export const taskRoute: Routes = [
         data: {
             authorities: ['ROLE_USER'],
             pageTitle: 'Tasks'
-        },
-        canActivate: [UserRouteAccessService]
+        }
+        // canActivate: [UserRouteAccessService]
     }
 ];
 
@@ -92,7 +92,7 @@ export const taskPopupRoute: Routes = [
             authorities: ['ROLE_USER'],
             pageTitle: 'Tasks'
         },
-        canActivate: [UserRouteAccessService],
+        // canActivate: [UserRouteAccessService],
         outlet: 'popup'
     }
 ];
