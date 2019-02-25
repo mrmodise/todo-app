@@ -4,7 +4,7 @@
     </div>
     <div class="row justify-content-center align-items-center h-100 mb-3">
         <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
-            <input type="text" [formControl]="searchField" class="form-control" name="searchField"
+            <input type="text" [formControl]="searchField" class="form-control" id="searchField" name="searchField"
                    placeholder="Search by Title">
         </div>
     </div>
@@ -45,13 +45,13 @@
             </div>
             <div class="list-group" *ngFor="let task of tasks; trackBy: trackId" jhiSort [(predicate)]="predicate"
                  [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <button type="button" class="list-group-item list-group-item-action"
+                <button type="button" id="open-task" class="list-group-item list-group-item-action"
                         (click)="task.isCollapsed = !task.isCollapsed"
                         [attr.aria-expanded]="!task.isCollapsed" aria-controls="collapseActivity">
                 <span class="float-left mr-3" *ngIf="!task.isCollapsed"><fa-icon
                     icon="angle-right"></fa-icon></span>
                     <span class="float-left mr-3" *ngIf="task.isCollapsed"><fa-icon icon="angle-down"></fa-icon></span>
-                    <span class="float-left">{{task.title}}</span>
+                    <span class="float-left" id="task-title">{{task.title}}</span>
                     <span class="float-right ml-3" [ngStyle]="{'color': task.completed ? 'green' : 'red'}"><fa-icon
                         icon="calendar-check"></fa-icon></span>
                     <span class="float-right mr-5">{{task.category?.name}}</span>
@@ -63,7 +63,7 @@
                                 <div class="col-4">
                                     <dt><span>Title</span></dt>
                                     <dd>
-                                        <span>{{task.title}}</span>
+                                        <span id="preview-task-title">{{task.title}}</span>
                                     </dd>
                                 </div>
                                 <div class="col-4">

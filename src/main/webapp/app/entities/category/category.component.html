@@ -1,6 +1,6 @@
 <div>
     <h2 id="page-heading">
-        <span>Categories</span>
+        <span id="cat-page-title">Categories</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-category" [routerLink]="['/category/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span >
@@ -8,7 +8,7 @@
             </span>
         </button>
     </h2>
-    <jhi-alert></jhi-alert>
+    <jhi-alert id="jhi-alert-confirm"></jhi-alert>
     <br/>
     <div class="table-responsive" *ngIf="categories">
         <table class="table table-striped">
