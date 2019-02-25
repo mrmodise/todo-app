@@ -39,7 +39,7 @@ Run the following commands in two separate terminals to create a blissful develo
 auto-refreshes when files change on your hard drive.
 
     ./mvnw (back-end loaded at localhost:8080)
-    npm start (front-end loaded at localhost:9000)
+    npm start (front-end loaded at localhost:9000) - start here
 
 ### Client tests
 
