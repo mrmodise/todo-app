@@ -22,7 +22,7 @@ public class Category implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

@@ -48,7 +48,7 @@ public class CategoryResource {
         }
         Category result = categoryRepository.save(category);
         return ResponseEntity.created(new URI("/api/categories/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, category.getName()))
             .body(result);
     }
 
