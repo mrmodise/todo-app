@@ -38,8 +38,8 @@ Lastly, Security has been disabled to simplify the application work-flow.
 Run the following commands in two separate terminals to create a blissful development experience where your browser
 auto-refreshes when files change on your hard drive.
 
-    ./mvnw
-    npm start
+    ./mvnw (back-end loaded at localhost:8080)
+    npm start (front-end loaded at localhost:9000)
 
 ### Client tests
 
