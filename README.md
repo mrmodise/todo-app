@@ -41,12 +41,6 @@ auto-refreshes when files change on your hard drive.
     ./mvnw
     npm start
 
-## Testing
-
-To launch the Spring Boot application tests, run:
-
-    ./mvnw clean test
-
 ### Client tests
 
 Unit tests are run by [Jest][] and written with [Jasmine][]. They're located in [src/test/javascript/](src/test/javascript/) and can be run with:

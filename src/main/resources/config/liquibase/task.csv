@@ -3,4 +3,5 @@ id;title;description;due_date;completed;is_collapsed;category_id
 2;Washing;Washing experience;2019-09-21;false;false;4
 3;Studying;Studying experience;2019-05-01;false;false;3
 4;Cleaning;Cleaning experience;2019-03-03;false;false;2
-4;Hiking;Hiking experience;2019-07-03;false;false;3
+5;Hiking;Hiking experience;2019-07-03;false;false;3
+6;Jogging;Jogging experience;2019-08-03;false;false;3
