@@ -1,6 +1,30 @@
 # todolist
 
-This application was generated using JHipster 5.8.1, you can find documentation and help at [https://www.jhipster.tech/documentation-archive/v5.8.1](https://www.jhipster.tech/documentation-archive/v5.8.1).
+This application is generated using JHipster. Therefore, all application components (back-end and
+front-end) are generated using JHipster.
+The back-end is a <b>Maven 3.0</b> project with <b>Spring Boot 2.0.8.RELEASE</b> and <b>Java 1.8</b>
+as illustrated in the pom.xml. The front-end is an <b>Angular 7.2.2</b> project, see package.json.
+  
+The key components of the application are 2 components <b>Task</b> and <b>Category</b>. The back-end
+uses <b>Spring JPA</b> to generate database tables inside of <b>H2 in-memory</b>.
+Once the database and its associated tables are generated Spring uses JpaRepositories to perform
+CRUD operations. Interfacing the front-end is the Web REST API located under <b>/web/rest</b>
+directory
+
+In addition to the above components, the back-end includes a Service to enable searching of Tasks.
+This is a functionality that comes out-of-the-box with JHipste. The motive was to utilize as much of
+JHipster's OOTB
+functionality as possible
+
+The front-end has 2 Angular components (again putting emphasis on Task and Category) that the user
+interacts with. Again, JHipster OOTB functionality is maintained, as it follows best practices.
+Therefore, the user
+interacts with Angular components, which retrieves data via Services that utilizes an HTTP
+interceptor to filter requests</p>
+
+For automated UI tests, Cypress is added as an additional testing framework over Protractor for the
+benefit of recording test data, screenshots and video - and view aggregated, next-level insights in
+a dashboard
 
 ## Development
 

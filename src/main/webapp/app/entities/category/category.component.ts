@@ -14,7 +14,6 @@ import { CategoryService } from './category.service';
 })
 export class CategoryComponent implements OnInit, OnDestroy {
     categories: ICategory[];
-    currentAccount: any;
     eventSubscriber: Subscription;
 
     constructor(
