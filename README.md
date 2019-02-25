@@ -30,13 +30,8 @@ Lastly, Security has been disabled to simplify the application work-flow.
 
 ## Development
 
-Before you can build this project, you must install and configure the following dependencies on your machine:
+-   NodeJS must be installed then run:
 
-1.  [Node.js][]: Node is used to run a development web server and build the project.
-    Depending on the system, you can install Node either from source or as a pre-packaged bundle.
-
-After installing Node, you should be able to run the following command to install development tools.
-You will only need to run this command when dependencies change in [package.json](package.json).
 
     npm install
 
@@ -48,7 +43,7 @@ auto-refreshes when files change on your hard drive.
 
 ## Testing
 
-To launch the back-end application tests, run:
+To launch the Spring Boot application tests, run:
 
     ./mvnw clean test
 
