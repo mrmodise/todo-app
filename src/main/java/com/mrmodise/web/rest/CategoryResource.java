@@ -69,7 +69,7 @@ public class CategoryResource {
         }
         Category result = categoryRepository.save(category);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, category.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, category.getName()))
             .body(result);
     }
 

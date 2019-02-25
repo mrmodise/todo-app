@@ -54,11 +54,11 @@ public class TaskResource {
     public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) throws URISyntaxException {
         log.debug("REST request to save Task : {}", task);
         if (task.getId() != null) {
-            throw new BadRequestAlertException("A new task cannot already have an ID", ENTITY_NAME, "idexists");
+            throw new BadRequestAlertException("A task with this ID already exists", ENTITY_NAME, "idexists");
         }
         Task result = taskService.save(task);
         return ResponseEntity.created(new URI("/api/tasks/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getTitle()))
             .body(result);
     }
 
@@ -79,7 +79,7 @@ public class TaskResource {
         }
         Task result = taskService.save(task);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, task.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, task.getTitle()))
             .body(result);
     }
 
